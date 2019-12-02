@@ -1,0 +1,58 @@
+<mat-card class="task-card">
+    <mat-card-header class="task-card-header">
+        <mat-card-title>
+            Assigned SubTask
+        </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+        <div class="container pt-5">
+    
+            <form #UpdateForm="ngForm">
+                <table class="table text-center table-borderless">
+                    <thead>
+                        <tr class="alignment text-uppercase">
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Start Date</th>
+                            <th scope="col">Due Date</th>
+                            <th scope="col">Progress</th>
+                            <th scope="col">Update</th>
+                        </tr>
+                    </thead>
+    
+                    <tbody>
+                        <!-- <tr *ngFor="let taskdetail of tasks">-->
+                        <tr *ngFor="let subtask of subtasks;let i=index">
+                            <th scope="row">{{subtask.subTaskId}}</th>
+                            <td>{{subtask.subTaskTitle}}</td>
+                            <td>{{subtask.subTaskDescription}}</td>
+                            <td>{{subtask.startDate | date: "MM/dd/yy"}}</td>
+                            <td>{{subtask.dueDate | date: "MM/dd/yy" }}</td>
+    
+    
+                            <td>
+                                <progress-bar [progress]="subtask.progressPercentage" id="progress-bar"
+                                    [color-degraded]="{'0': '#ff0000',  '15': '#ed5107', '50': '#40bfc1', '70' : '#a8ff3e'}">
+                                </progress-bar>
+                                <input type="text" value="{{subtask.progressPercentage}}" id="progress-text"
+                                    class="noborder" style="display: none;" [(ngModel)]="subtask.progressPercentage"
+                                    name="progress-text">
+                                <br />
+                                <textarea id="progress-comment" style="display: none;" [(ngModel)]="subtask.comment"
+                                    name="progress-comment" required>
+                                </textarea>
+    
+                            </td>
+                            <td>
+                                <button id="OnComment" type="button" [disabled]="subtask.progressPercentage>100"
+                                    class="btn btn-info btn-sm" (click)="update(i)">Update</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </mat-card-content>
+</mat-card>
